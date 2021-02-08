@@ -34,33 +34,33 @@ class ImageListViewModelTest {
     @Before
     fun setUp() {
         val imageList = mutableListOf(
-                ImageDocument(
-                        collection = "blog",
-                        thumbnail_url = "https://search3.kakaocdn.net/argon/130x130_85_c/JC8LrBAhH4Q"
-                ),
-                ImageDocument(
-                        collection = "news",
-                        thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
-                ),
-                ImageDocument(
-                        collection = "news",
-                        thumbnail_url = "https://search1.kakaocdn.net/argon/130x130_85_c/IXJezql9ZEV"
-                ),
-                ImageDocument(
-                        collection = "cafe",
-                        thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/IReAcFKrzyX"
-                ),
-                ImageDocument(
-                        collection = "cafe",
-                        thumbnail_url = "https://search1.kakaocdn.net/argon/130x130_85_c/5yJCVPPDnpF"
-                ),
-                ImageDocument(
-                        collection = "cafe",
-                        thumbnail_url = "https://search4.kakaocdn.net/argon/130x130_85_c/DJiIXGi0rWH"
-                )
+            ImageDocument(
+                collection = "blog",
+                thumbnail_url = "https://search3.kakaocdn.net/argon/130x130_85_c/JC8LrBAhH4Q"
+            ),
+            ImageDocument(
+                collection = "news",
+                thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
+            ),
+            ImageDocument(
+                collection = "news",
+                thumbnail_url = "https://search1.kakaocdn.net/argon/130x130_85_c/IXJezql9ZEV"
+            ),
+            ImageDocument(
+                collection = "cafe",
+                thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/IReAcFKrzyX"
+            ),
+            ImageDocument(
+                collection = "cafe",
+                thumbnail_url = "https://search1.kakaocdn.net/argon/130x130_85_c/5yJCVPPDnpF"
+            ),
+            ImageDocument(
+                collection = "cafe",
+                thumbnail_url = "https://search4.kakaocdn.net/argon/130x130_85_c/DJiIXGi0rWH"
+            )
         )
         val responseMeta =
-                ResponseMeta(total_count = total_count, is_end = is_end, pageableCount = pageableCount)
+            ResponseMeta(total_count = total_count, is_end = is_end, pageableCount = pageableCount)
 
         responseKakao = ResponseKakao(responseMeta, imageList)
 
@@ -73,10 +73,10 @@ class ImageListViewModelTest {
         assertThat(imageListViewModel.search.page).isEqualTo(1)
 
         val field: Field =
-                imageListViewModel.javaClass.getDeclaredField("imgItemsAll")
+            imageListViewModel.javaClass.getDeclaredField("imgItemsAll")
         field.isAccessible = true
         val responseImgItemsAll: List<ImageDocument> =
-                field.get(imageListViewModel) as List<ImageDocument>
+            field.get(imageListViewModel) as List<ImageDocument>
         assertThat(responseImgItemsAll).hasSize(0)
     }
 
@@ -84,10 +84,10 @@ class ImageListViewModelTest {
     fun newSearchEventTest() = runBlockingTest {
         // given
         imageListViewModel.imgItemsAll = listOf(
-                ImageDocument(
-                        collection = "news",
-                        thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
-                )
+            ImageDocument(
+                collection = "news",
+                thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
+            )
         )
         val givenPage = imageListViewModel.search.page
         val givenCnt = imageListViewModel.imgItemsAll.size
@@ -106,10 +106,10 @@ class ImageListViewModelTest {
     fun nextPageEventTest() = runBlockingTest {
         // given
         imageListViewModel.imgItemsAll = listOf(
-                ImageDocument(
-                        collection = "news",
-                        thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
-                )
+            ImageDocument(
+                collection = "news",
+                thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
+            )
         )
         val givenPage = imageListViewModel.search.page
         val givenCnt = imageListViewModel.imgItemsAll.size
@@ -121,7 +121,7 @@ class ImageListViewModelTest {
         // then
         val repositorySize = imageListViewModel.getResponseFromRepository().documents.size
         // then
-        assertThat(imageListViewModel.search.page).isEqualTo(givenPage+1)
+        assertThat(imageListViewModel.search.page).isEqualTo(givenPage + 1)
         assertThat(imageListViewModel.imgItemsAll.size).isEqualTo(givenCnt + repositorySize)
         assertThat(imageListViewModel.imgItemsAll.size).isNotEqualTo(repositorySize)
     }
@@ -129,8 +129,8 @@ class ImageListViewModelTest {
     @Test
     fun arrangeResponseTest() {
         val method: Method = imageListViewModel.javaClass.getDeclaredMethod(
-                "arrangeResponse",
-                ResponseKakao::class.java
+            "arrangeResponse",
+            ResponseKakao::class.java
         )
         method.isAccessible = true
 
@@ -144,13 +144,13 @@ class ImageListViewModelTest {
     fun getFilterListTest() {
         // given
         val field: Field =
-                imageListViewModel.javaClass.getDeclaredField("_filter")
+            imageListViewModel.javaClass.getDeclaredField("_filter")
         field.isAccessible = true
         val _filter: MutableSet<String> = field.get(imageListViewModel) as MutableSet<String>
         assertThat(_filter).hasSize(1) // filter 기본값 all = 1
 
         val method: Method =
-                imageListViewModel.javaClass.getDeclaredMethod("getFilterListFromResponse", ResponseKakao::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod("getFilterListFromResponse", ResponseKakao::class.java)
         method.isAccessible = true
 
         // when
@@ -164,14 +164,14 @@ class ImageListViewModelTest {
     fun appendImageListTest() {
         // given
         imageListViewModel.imgItemsAll = listOf(
-                ImageDocument(
-                        collection = "news",
-                        thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
-                )
+            ImageDocument(
+                collection = "news",
+                thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
+            )
         )
         val initSize = imageListViewModel.imgItemsAll.size
         val method: Method =
-                imageListViewModel.javaClass.getDeclaredMethod("appendImageList", List::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod("appendImageList", List::class.java)
         method.isAccessible = true
         val appendTargetList = responseKakao.documents
 
@@ -186,12 +186,12 @@ class ImageListViewModelTest {
     fun revertInitialFilterTest() {
         // given
         val field: Field =
-                imageListViewModel.javaClass.getDeclaredField("_filter")
+            imageListViewModel.javaClass.getDeclaredField("_filter")
         field.isAccessible = true
         val _filter: MutableSet<String> = field.get(imageListViewModel) as MutableSet<String>
 
         val method: Method =
-                imageListViewModel.javaClass.getDeclaredMethod("revertInitialFilter")
+            imageListViewModel.javaClass.getDeclaredMethod("revertInitialFilter")
         method.isAccessible = true
 
         // when
@@ -207,7 +207,7 @@ class ImageListViewModelTest {
         // given
         val filterSet = mutableSetOf("news", "blog", "cafe")
         val method: Method =
-                imageListViewModel.javaClass.getDeclaredMethod("arrangeFilterList", MutableSet::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod("arrangeFilterList", MutableSet::class.java)
         method.isAccessible = true
 
         // when
@@ -223,7 +223,7 @@ class ImageListViewModelTest {
         imageListViewModel.search.filterSelected = "cafe"
 
         val method: Method =
-                imageListViewModel.javaClass.getDeclaredMethod("loadFilteredItems", List::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod("loadFilteredItems", List::class.java)
         method.isAccessible = true
 
         // when
