@@ -36,12 +36,12 @@ buildTypes {
 ```
 
 ```
-// 1. 레거시 multidex 사용 자제
-// 2. 개발 빌드에서 패키징 리소스 최소화
+// 3. 레거시 multidex 사용 자제
+// 4. 개발 빌드에서 패키징 리소스 최소화
 productFlavors{
         dev {
-            minSdkVersion 21                //...1
-            resConfigs('en','xhdpi')        //...2
+            minSdkVersion 21                //...3
+            resConfigs('en','xhdpi')        //...4
 
         }
         //...
