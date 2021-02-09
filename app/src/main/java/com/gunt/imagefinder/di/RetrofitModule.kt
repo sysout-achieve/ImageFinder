@@ -19,19 +19,19 @@ const val KAKAO_API_KEY = BuildConfig.KAKAO_KEY
 @InstallIn(ApplicationComponent::class)
 object RetrofitModule {
 
-    @Singleton
-    @Provides
-    fun provideImageDocumentDtoMapper(): ImageDocumentDtoMapper {
-        return ImageDocumentDtoMapper()
-    }
+  @Singleton
+  @Provides
+  fun provideImageDocumentDtoMapper(): ImageDocumentDtoMapper {
+    return ImageDocumentDtoMapper()
+  }
 
-    @Singleton
-    @Provides
-    fun provideRetrofitApiService(): ImageDocumentService {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ImageDocumentService::class.java)
-    }
+  @Singleton
+  @Provides
+  fun provideRetrofitApiService(): ImageDocumentService {
+    return Retrofit.Builder()
+      .baseUrl(BASE_URL)
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
+      .create(ImageDocumentService::class.java)
+  }
 }

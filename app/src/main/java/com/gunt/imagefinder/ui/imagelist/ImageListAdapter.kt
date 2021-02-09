@@ -8,42 +8,44 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gunt.imagefinder.data.domain.ImageDocument
 import com.gunt.imagefinder.databinding.ImagedocsItemBinding
 
-class ImageListAdapter : ListAdapter<ImageDocument, ImageListAdapter.ViewHolder>(ImageDiffCallback()) {
+class ImageListAdapter :
+  ListAdapter<ImageDocument, ImageListAdapter.ViewHolder>(ImageDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    return ViewHolder.from(parent)
+  }
+
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    val item = getItem(position)
+
+    holder.bind(item)
+  }
+
+  class ViewHolder private constructor(private val binding: ImagedocsItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: ImageDocument) {
+      binding.imageDocs = item
+      binding.executePendingBindings()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+    companion object {
+      fun from(parent: ViewGroup): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ImagedocsItemBinding.inflate(layoutInflater, parent, false)
 
-        holder.bind(item)
+        return ViewHolder(binding)
+      }
     }
-
-    class ViewHolder private constructor(private val binding: ImagedocsItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: ImageDocument) {
-            binding.imageDocs = item
-            binding.executePendingBindings()
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ImagedocsItemBinding.inflate(layoutInflater, parent, false)
-
-                return ViewHolder(binding)
-            }
-        }
-    }
+  }
 }
 
 class ImageDiffCallback : DiffUtil.ItemCallback<ImageDocument>() {
-    override fun areItemsTheSame(oldItem: ImageDocument, newItem: ImageDocument): Boolean {
-        return oldItem.image_url == newItem.image_url
-    }
+  override fun areItemsTheSame(oldItem: ImageDocument, newItem: ImageDocument): Boolean {
+    return oldItem.image_url == newItem.image_url
+  }
 
-    override fun areContentsTheSame(oldItem: ImageDocument, newItem: ImageDocument): Boolean {
-        return oldItem == newItem
-    }
+  override fun areContentsTheSame(oldItem: ImageDocument, newItem: ImageDocument): Boolean {
+    return oldItem == newItem
+  }
 }

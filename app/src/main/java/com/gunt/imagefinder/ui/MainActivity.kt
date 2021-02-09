@@ -10,11 +10,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        setContentView(binding.root)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    setContentView(binding.root)
 
-        GlobalExceptionHandler.setActivity(this)
-    }
+    GlobalExceptionHandler.setActivity(this)
+  }
 }

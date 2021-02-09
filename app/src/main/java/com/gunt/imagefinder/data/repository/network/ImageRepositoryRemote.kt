@@ -12,15 +12,15 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 @InstallIn(ActivityRetainedComponent::class)
 class ImageRepositoryRemote
 constructor(
-    private var imageDocumentService: ImageDocumentService,
-    private var mapper: ImageDocumentDtoMapper
+  private var imageDocumentService: ImageDocumentService,
+  private var mapper: ImageDocumentDtoMapper
 ) : ImageRepository {
 
-    override suspend fun findImage(title: String, page: Int): ResponseKakao<ImageDocument> {
-        val responseDocuments = imageDocumentService.requestImageDocs(title = title, page = page)
-        return ResponseKakao(
-            responseDocuments.meta,
-            mapper.toDomainModelList(responseDocuments.documents)
-        )
-    }
+  override suspend fun findImage(title: String, page: Int): ResponseKakao<ImageDocument> {
+    val responseDocuments = imageDocumentService.requestImageDocs(title = title, page = page)
+    return ResponseKakao(
+      responseDocuments.meta,
+      mapper.toDomainModelList(responseDocuments.documents)
+    )
+  }
 }
