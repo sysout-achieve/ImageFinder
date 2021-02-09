@@ -1,10 +1,14 @@
-### 빌드 시간 개선
+# 빌드 시간 개선
+
+<hr>
 
 기본설정으로 빌드했을 때<br>
 ![https://github.com/sysout-achieve/ImageFinder/blob/master/description/before%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png](https://github.com/sysout-achieve/ImageFinder/blob/master/description/before%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png)
 <br>
-
+<br>
+<br>
 ## 적용 팁
+<br>
 
 gradle.properties에 적용
 
@@ -43,6 +47,7 @@ productFlavors{
         //...
 }
 ```
+<br>
 
 개선사항 적용했을 때<br>
 ![https://github.com/sysout-achieve/ImageFinder/blob/master/description/after%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png](https://github.com/sysout-achieve/ImageFinder/blob/master/description/after%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png)
