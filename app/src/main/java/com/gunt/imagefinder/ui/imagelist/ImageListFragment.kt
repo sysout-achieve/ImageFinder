@@ -31,7 +31,6 @@ class ImageListSearchFragment : Fragment() {
     private val viewModel: ImageListViewModel by viewModels()
 
     private lateinit var binding: FragmentImageListBinding
-    private lateinit var listAdapter: ImageListAdapter
     private lateinit var dialogBuilder: AlertDialog.Builder
 
     private var compositeDisposable = CompositeDisposable()
@@ -50,7 +49,6 @@ class ImageListSearchFragment : Fragment() {
         setupListAdapter()
         setupEndScrollListener()
         setupSwipeRefreshListener()
-        setupLoadingObserver()
         setupFilterObserver()
 
         binding.executePendingBindings()
@@ -89,20 +87,8 @@ class ImageListSearchFragment : Fragment() {
         )
     }
 
-    // viewModel의 Loading Observe(viewModelScope의 데이터 처리 완료 시 false 반환)
-    private fun setupLoadingObserver() {
-        viewModel.loading.observe(
-            this.viewLifecycleOwner,
-            Observer {
-                binding.layoutSwipeRefresh.isRefreshing = it
-            }
-        )
-    }
-
     private fun setupListAdapter() {
-        listAdapter = ImageListAdapter()
         binding.imageList.layoutManager = GridLayoutManager(binding.root.context, GRID_SPAN_COUNT)
-        binding.imageList.adapter = listAdapter
     }
 
     private fun setupEndScrollListener() {

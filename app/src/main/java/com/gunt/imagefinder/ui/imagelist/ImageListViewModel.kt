@@ -13,13 +13,14 @@ import java.lang.IllegalStateException
 class ImageListViewModel
 @ViewModelInject
 constructor(
-    private var imageRepository: ImageRepository
+    private var imageRepository: ImageRepository,
 ) : ViewModel() {
 
     var search = Search()
     var loading = MutableLiveData(false)
     var imgItemsAll: List<ImageDocument> = listOf()
     val imgItemsFiltered: MutableLiveData<List<ImageDocument>> = MutableLiveData(listOf())
+    val imageListAdapter = ImageListAdapter()
 
     private var _filter: MutableSet<String> = mutableSetOf("all")
     var filter: MutableLiveData<ArrayList<String>> = MutableLiveData(arrayListOf())
@@ -30,19 +31,12 @@ constructor(
         viewModelScope.launch {
             try {
                 when (event) {
-                    is ImageListEventType.NewSearch -> {
-                        newSearchEvent()
-                    }
-                    is ImageListEventType.NextPage -> {
-                        nextPageEvent()
-                    }
-                    is ImageListEventType.NewFilter -> {
-                        newFilterEvent()
-                    }
+                    is ImageListEventType.NewSearch -> newSearchEvent()
+                    is ImageListEventType.NextPage -> nextPageEvent()
+                    is ImageListEventType.NewFilter -> newFilterEvent()
                 }
             } catch (e: IllegalStateException) {
-                imgItemsAll = listOf()
-                filteringImageList(imgItemsAll)
+                getEmptyImageList()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
@@ -81,6 +75,11 @@ constructor(
         loading.postValue(false)
     }
 
+    private fun getEmptyImageList() {
+        imgItemsAll = listOf()
+        filteringImageList(imgItemsAll)
+    }
+
     private fun filteringImageList(allItems: List<ImageDocument>) {
         if (search.filterSelected == "all") loadAllItems(allItems)
         else loadFilteredItems(allItems)
@@ -92,7 +91,7 @@ constructor(
     }
 
     private fun getFilterListFromResponse(response: ResponseKakao<ImageDocument>) {
-        getImageDocsList(response).filter {
+        getImageDocsList(response).forEach {
             _filter.add(it.collection)
         }
     }

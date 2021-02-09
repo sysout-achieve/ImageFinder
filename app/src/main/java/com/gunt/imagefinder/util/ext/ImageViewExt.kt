@@ -8,11 +8,11 @@ import com.gunt.imagefinder.R
 object ImageViewExt {
     @JvmStatic
     @BindingAdapter("loadImage")
-    fun loadImage(thumbnailImgView: ImageView, imgUrl: String?) {
-        Glide.with(thumbnailImgView)
+    fun ImageView.loadImage(imgUrl: String?) {
+        Glide.with(this)
             .load(imgUrl)
             .thumbnail(0.2f)
             .error(R.drawable.ic_launcher_foreground) // Error Image 있을 경우 변경
-            .into(thumbnailImgView)
+            .into(this)
     }
 }
