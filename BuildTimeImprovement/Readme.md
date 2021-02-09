@@ -3,7 +3,7 @@
 <hr>
 
 기본설정으로 빌드했을 때<br>
-![https://github.com/sysout-achieve/ImageFinder/blob/master/description/before%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png](https://github.com/sysout-achieve/ImageFinder/blob/master/description/before%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png)
+![https://github.com/sysout-achieve/ImageFinder/blob/master/BuildTimeImprovement/before%EB%B9%8C%EB%93%9C%EC%86%8D%EB%8F%84%EA%B0%9C%EC%84%A0.png](https://github.com/sysout-achieve/ImageFinder/blob/master/BuildTimeImprovement/before%EB%B9%8C%EB%93%9C%EC%86%8D%EB%8F%84%EA%B0%9C%EC%84%A0.png)
 <br>
 <br>
 <br>
@@ -50,7 +50,7 @@ productFlavors{
 <br>
 
 개선사항 적용했을 때<br>
-![https://github.com/sysout-achieve/ImageFinder/blob/master/description/after%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png](https://github.com/sysout-achieve/ImageFinder/blob/master/description/after%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%E1%84%89%E1%85%A9%E1%86%A8%E1%84%83%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5%E1%86%AB.png)
+![https://github.com/sysout-achieve/ImageFinder/blob/master/BuildTimeImprovement/after%EB%B9%8C%EB%93%9C%EC%86%8D%EB%8F%84%EA%B0%9C%EC%84%A0.png](https://github.com/sysout-achieve/ImageFinder/blob/master/BuildTimeImprovement/after%EB%B9%8C%EB%93%9C%EC%86%8D%EB%8F%84%EA%B0%9C%EC%84%A0.png)
 
 <br>
 작은 프로젝트에서도 16초에서 1초로 빌드 시간을 크게 단축시키는 것을 확인할 수 있었다.<br>
