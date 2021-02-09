@@ -89,13 +89,13 @@ class ImageListViewModelTest {
                 thumbnail_url = "https://search2.kakaocdn.net/argon/130x130_85_c/ETvWnjL98F2"
             )
         )
-        val givenPage = imageListViewModel.search.page
         val givenCnt = imageListViewModel.imgItemsAll.size
         imageListViewModel.search.searchStr = "혜리"
 
         // when
         imageListViewModel.newSearchEvent()
         val repositorySize = imageListViewModel.getResponseFromRepository().documents.size
+
         // then
         assertThat(imageListViewModel.search.page).isEqualTo(1)
         assertThat(imageListViewModel.imgItemsAll.size).isNotEqualTo(givenCnt + repositorySize)
@@ -114,12 +114,11 @@ class ImageListViewModelTest {
         val givenPage = imageListViewModel.search.page
         val givenCnt = imageListViewModel.imgItemsAll.size
         imageListViewModel.search.searchStr = "혜리"
+        val repositorySize = imageListViewModel.getResponseFromRepository().documents.size
 
         // when
         imageListViewModel.nextPageEvent()
 
-        // then
-        val repositorySize = imageListViewModel.getResponseFromRepository().documents.size
         // then
         assertThat(imageListViewModel.search.page).isEqualTo(givenPage + 1)
         assertThat(imageListViewModel.imgItemsAll.size).isEqualTo(givenCnt + repositorySize)
@@ -128,6 +127,7 @@ class ImageListViewModelTest {
 
     @Test
     fun arrangeResponseTest() {
+        // given
         val method: Method = imageListViewModel.javaClass.getDeclaredMethod(
             "arrangeResponse",
             ResponseKakao::class.java
@@ -137,6 +137,7 @@ class ImageListViewModelTest {
         // when
         method.invoke(imageListViewModel, responseKakao)
 
+        // then
         assertThat(imageListViewModel.search.isNextPageAvailable()).isFalse()
     }
 
@@ -150,7 +151,10 @@ class ImageListViewModelTest {
         assertThat(_filter).hasSize(1) // filter 기본값 all = 1
 
         val method: Method =
-            imageListViewModel.javaClass.getDeclaredMethod("getFilterListFromResponse", ResponseKakao::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod(
+                "getFilterListFromResponse",
+                ResponseKakao::class.java
+            )
         method.isAccessible = true
 
         // when
@@ -207,7 +211,10 @@ class ImageListViewModelTest {
         // given
         val filterSet = mutableSetOf("news", "blog", "cafe")
         val method: Method =
-            imageListViewModel.javaClass.getDeclaredMethod("arrangeFilterList", MutableSet::class.java)
+            imageListViewModel.javaClass.getDeclaredMethod(
+                "arrangeFilterList",
+                MutableSet::class.java
+            )
         method.isAccessible = true
 
         // when
@@ -221,6 +228,9 @@ class ImageListViewModelTest {
     fun loadFilteredItemsTest() = runBlockingTest {
         // given
         imageListViewModel.search.filterSelected = "cafe"
+        val expected = responseKakao.documents
+            .filter { it.collection == imageListViewModel.search.filterSelected }
+            .size
 
         val method: Method =
             imageListViewModel.javaClass.getDeclaredMethod("loadFilteredItems", List::class.java)
@@ -230,6 +240,6 @@ class ImageListViewModelTest {
         method.invoke(imageListViewModel, responseKakao.documents)
 
         // then
-        assertThat(imageListViewModel.imgItemsFiltered.value?.size).isEqualTo(3)
+        assertThat(imageListViewModel.imgItemsFiltered.value?.size).isEqualTo(expected)
     }
 }

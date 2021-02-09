@@ -28,6 +28,7 @@
                 android:padding="18dp"
                 android:singleLine="true"
                 android:text="@={imageListViewModel.search.searchStr}"
+                android:imeOptions="actionDone"
                 app:layout_constraintEnd_toStartOf="@+id/btn_category"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintHorizontal_weight="10"
@@ -66,6 +67,7 @@
                     android:overScrollMode="never"
                     tools:itemCount="3"
                     tools:listitem="@layout/imagedocs_item"
+                    app:setAdapter="@{imageListViewModel.imageListAdapter}"
                     app:items="@{imageListViewModel.imgItemsFiltered}" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
