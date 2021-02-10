@@ -66,6 +66,7 @@ constructor(
         }
     }
 
+
     private fun newFilterEvent() {
         filteringImageList(imgItemsAll)
     }
