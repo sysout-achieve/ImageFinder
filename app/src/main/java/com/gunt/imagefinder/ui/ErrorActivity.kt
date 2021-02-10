@@ -9,23 +9,23 @@ import com.gunt.imagefinder.databinding.ActivityErrorBinding
 
 class ErrorActivity : AppCompatActivity() {
 
-  private lateinit var binding: ActivityErrorBinding
+    private lateinit var binding: ActivityErrorBinding
 
-  private val errorText by lazy { intent.getStringExtra(EXTRA_ERROR_TEXT) }
+    private val errorText by lazy { intent.getStringExtra(EXTRA_ERROR_TEXT) }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_error)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_error)
 
-    binding.txtErrorContents.text = errorText
+        binding.txtErrorContents.text = errorText
 
-    binding.button.setOnClickListener {
-      startActivity(Intent(this, MainActivity::class.java))
-      finish()
+        binding.button.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
-  }
 
-  companion object {
-    const val EXTRA_ERROR_TEXT = "EXTRA_ERROR_TEXT"
-  }
+    companion object {
+        const val EXTRA_ERROR_TEXT = "EXTRA_ERROR_TEXT"
+    }
 }

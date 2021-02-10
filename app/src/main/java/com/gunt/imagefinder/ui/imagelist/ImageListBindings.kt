@@ -6,12 +6,12 @@ import com.gunt.imagefinder.data.domain.ImageDocument
 
 @BindingAdapter("items")
 fun setItems(recyclerView: RecyclerView, items: List<ImageDocument>?) {
-  items?.let {
-    (recyclerView.adapter as ImageListAdapter).submitList(items)
-  }
+    items?.let {
+        (recyclerView.adapter as ImageListAdapter).submitList(items)
+    }
 }
 
 @BindingAdapter("setAdapter")
 fun setAdapter(recyclerView: RecyclerView, imageListAdapter: ImageListAdapter) {
-  recyclerView.adapter = imageListAdapter
+    recyclerView.adapter = imageListAdapter
 }

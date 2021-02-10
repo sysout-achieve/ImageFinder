@@ -14,15 +14,15 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object RepositoryModule {
 
-  @Singleton
-  @Provides
-  fun provideImageRepository(
-    imageDocumentService: ImageDocumentService,
-    imageDocumentDtoMapper: ImageDocumentDtoMapper
-  ): ImageRepository {
-    return ImageRepositoryRemote(
-      imageDocumentService = imageDocumentService,
-      mapper = imageDocumentDtoMapper
-    )
-  }
+    @Singleton
+    @Provides
+    fun provideImageRepository(
+        imageDocumentService: ImageDocumentService,
+        imageDocumentDtoMapper: ImageDocumentDtoMapper
+    ): ImageRepository {
+        return ImageRepositoryRemote(
+            imageDocumentService = imageDocumentService,
+            mapper = imageDocumentDtoMapper
+        )
+    }
 }

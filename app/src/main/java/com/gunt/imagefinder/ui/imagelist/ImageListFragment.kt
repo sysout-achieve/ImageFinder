@@ -28,91 +28,91 @@ const val REQUEST_ENDLESS_CNT: Int = 10
 @AndroidEntryPoint
 class ImageListSearchFragment : Fragment() {
 
-  private val viewModel: ImageListViewModel by viewModels()
+    private val viewModel: ImageListViewModel by viewModels()
 
-  private lateinit var binding: FragmentImageListBinding
-  private lateinit var dialogBuilder: AlertDialog.Builder
+    private lateinit var binding: FragmentImageListBinding
+    private lateinit var dialogBuilder: AlertDialog.Builder
 
-  private var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    binding =
-      DataBindingUtil.inflate(layoutInflater, R.layout.fragment_image_list, container, false)
-    binding.setVariable(BR.imageListViewModel, viewModel)
-    val view = binding.root
-    binding.lifecycleOwner = this
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_image_list, container, false)
+        binding.setVariable(BR.imageListViewModel, viewModel)
+        val view = binding.root
+        binding.lifecycleOwner = this
 
-    setupSearchEditTextChangeListener()
-    setupListAdapter()
-    setupEndScrollListener()
-    setupSwipeRefreshListener()
-    setupFilterObserver()
+        setupSearchEditTextChangeListener()
+        setupListAdapter()
+        setupEndScrollListener()
+        setupSwipeRefreshListener()
+        setupFilterObserver()
 
-    binding.executePendingBindings()
-    dialogBuilder = AlertDialog.Builder(binding.root.context)
+        binding.executePendingBindings()
+        dialogBuilder = AlertDialog.Builder(binding.root.context)
 
-    binding.btnCategory.setOnClickListener { showAlert() }
+        binding.btnCategory.setOnClickListener { showAlert() }
 
-    return view
-  }
-
-  // 자동 검색 기능
-  private fun setupSearchEditTextChangeListener() {
-    val subscription: Disposable =
-      binding.editSearch.textChanges().throttleWithTimeout(200, TimeUnit.MILLISECONDS)
-        .subscribeOn(Schedulers.io())
-        .subscribeBy(
-          onNext = {
-            viewModel.onTriggerEvent(ImageListEventType.NewSearch)
-          }
-        )
-    compositeDisposable.add(subscription)
-  }
-
-  // viewModel의 filterList Observe
-  private fun setupFilterObserver() {
-    viewModel.filter.observe(
-      this.viewLifecycleOwner,
-      Observer {
-        val temp = it.toTypedArray<CharSequence>()
-        dialogBuilder.setTitle(getString(R.string.select_category))
-          .setItems(temp) { _, position ->
-            binding.btnCategory.text = temp[position]
-            viewModel.onTriggerEvent(ImageListEventType.NewFilter)
-          }
-      }
-    )
-  }
-
-  private fun setupListAdapter() {
-    binding.imageList.layoutManager = GridLayoutManager(binding.root.context, GRID_SPAN_COUNT)
-  }
-
-  private fun setupEndScrollListener() {
-    binding.imageList.addOnScrollListener(object :
-      EndlessRecyclerScrollListener(REQUEST_ENDLESS_CNT) {
-      override fun onLoadMore() {
-        viewModel.onTriggerEvent(ImageListEventType.NextPage)
-      }
-    })
-  }
-
-  private fun setupSwipeRefreshListener() {
-    binding.layoutSwipeRefresh.setOnRefreshListener {
-      viewModel.onTriggerEvent(ImageListEventType.NewSearch)
+        return view
     }
-  }
 
-  private fun showAlert() {
-    dialogBuilder.create().show()
-  }
+    // 자동 검색 기능
+    private fun setupSearchEditTextChangeListener() {
+        val subscription: Disposable =
+            binding.editSearch.textChanges().throttleWithTimeout(200, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+                    onNext = {
+                        viewModel.onTriggerEvent(ImageListEventType.NewSearch)
+                    }
+                )
+        compositeDisposable.add(subscription)
+    }
 
-  override fun onDestroy() {
-    compositeDisposable.clear()
-    super.onDestroy()
-  }
+    // viewModel의 filterList Observe
+    private fun setupFilterObserver() {
+        viewModel.filter.observe(
+            this.viewLifecycleOwner,
+            Observer {
+                val temp = it.toTypedArray<CharSequence>()
+                dialogBuilder.setTitle(getString(R.string.select_category))
+                    .setItems(temp) { _, position ->
+                        binding.btnCategory.text = temp[position]
+                        viewModel.onTriggerEvent(ImageListEventType.NewFilter)
+                    }
+            }
+        )
+    }
+
+    private fun setupListAdapter() {
+        binding.imageList.layoutManager = GridLayoutManager(binding.root.context, GRID_SPAN_COUNT)
+    }
+
+    private fun setupEndScrollListener() {
+        binding.imageList.addOnScrollListener(object :
+                EndlessRecyclerScrollListener(REQUEST_ENDLESS_CNT) {
+                override fun onLoadMore() {
+                    viewModel.onTriggerEvent(ImageListEventType.NextPage)
+                }
+            })
+    }
+
+    private fun setupSwipeRefreshListener() {
+        binding.layoutSwipeRefresh.setOnRefreshListener {
+            viewModel.onTriggerEvent(ImageListEventType.NewSearch)
+        }
+    }
+
+    private fun showAlert() {
+        dialogBuilder.create().show()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
+    }
 }

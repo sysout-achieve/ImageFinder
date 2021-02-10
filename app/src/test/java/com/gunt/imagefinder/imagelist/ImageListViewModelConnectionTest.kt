@@ -14,30 +14,30 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class ImageListViewModelConnectionTest {
 
-  lateinit var imageListViewModel: ImageListViewModel
+    lateinit var imageListViewModel: ImageListViewModel
 
-  @Before
-  fun setUp() {
-    imageListViewModel = ImageListViewModel(
-      ImageRepositoryRemote(
-        RetrofitModule.provideRetrofitApiService(),
-        ImageDocumentDtoMapper()
-      )
-    )
-  }
+    @Before
+    fun setUp() {
+        imageListViewModel = ImageListViewModel(
+            ImageRepositoryRemote(
+                RetrofitModule.provideRetrofitApiService(),
+                ImageDocumentDtoMapper()
+            )
+        )
+    }
 
-  @Test
-  fun searchImgListWithApiTest() = runBlocking {
-    // given
-    imageListViewModel.search.searchStr = "혜리"
-    val expected = REQUEST_IMAGE_LIST_SIZE_DEFAULT
+    @Test
+    fun searchImgListWithApiTest() = runBlocking {
+        // given
+        imageListViewModel.search.searchStr = "혜리"
+        val expected = REQUEST_IMAGE_LIST_SIZE_DEFAULT
 
-    // when
-    val responseKakao = imageListViewModel.getResponseFromRepository()
-    val list = responseKakao.documents
+        // when
+        val responseKakao = imageListViewModel.getResponseFromRepository()
+        val list = responseKakao.documents
 
-    // then
-    print(list[0])
-    Truth.assertThat(list.size).isEqualTo(expected)
-  }
+        // then
+        print(list[0])
+        Truth.assertThat(list.size).isEqualTo(expected)
+    }
 }

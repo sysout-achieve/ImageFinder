@@ -21,41 +21,41 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 class ImageListSearchFragmentTest {
 
-  @get:Rule
-  var hiltRule = HiltAndroidRule(this)
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
-  @Before
-  fun setUp() {
-    hiltRule.inject()
-    launchFragmentInHiltContainer<ImageListSearchFragment>()
-  }
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+        launchFragmentInHiltContainer<ImageListSearchFragment>()
+    }
 
-  @Test
-  fun fragmentInViewTest() {
-    onView(withId(R.id.edit_search)).check(matches(isDisplayed()))
-    onView(withId(R.id.btn_category)).check(matches(isDisplayed()))
-    onView(withId(R.id.btn_category)).check(matches(withText("ALL")))
-    onView(withId(R.id.image_list)).check(matches(isDisplayed()))
-  }
+    @Test
+    fun fragmentInViewTest() {
+        onView(withId(R.id.edit_search)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_category)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_category)).check(matches(withText("ALL")))
+        onView(withId(R.id.image_list)).check(matches(isDisplayed()))
+    }
 
-  @Test
-  fun editTextChangeTest() {
-    // given
-    onView(withId(R.id.edit_search)).perform(click())
+    @Test
+    fun editTextChangeTest() {
+        // given
+        onView(withId(R.id.edit_search)).perform(click())
 
-    // when
-    onView(withId(R.id.edit_search)).perform(typeTextIntoFocusedView("hi"))
+        // when
+        onView(withId(R.id.edit_search)).perform(typeTextIntoFocusedView("hi"))
 
-    // then
-    onView(withId(R.id.edit_search)).check(matches(withText("hi")))
-  }
+        // then
+        onView(withId(R.id.edit_search)).check(matches(withText("hi")))
+    }
 
-  @Test
-  fun clickButtonCategoryTest() {
-    // given
-    onView(withId(R.id.btn_category)).perform(click())
+    @Test
+    fun clickButtonCategoryTest() {
+        // given
+        onView(withId(R.id.btn_category)).perform(click())
 
-    // then
-    onView(withText(R.string.select_category)).check(matches(isDisplayed()))
-  }
+        // then
+        onView(withText(R.string.select_category)).check(matches(isDisplayed()))
+    }
 }
