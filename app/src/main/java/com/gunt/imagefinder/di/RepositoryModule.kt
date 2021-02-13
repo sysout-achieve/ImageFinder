@@ -18,11 +18,9 @@ object RepositoryModule {
     @Provides
     fun provideImageRepository(
         imageDocumentService: ImageDocumentService,
-        imageDocumentDtoMapper: ImageDocumentDtoMapper
     ): ImageRepository {
         return ImageRepositoryRemote(
             imageDocumentService = imageDocumentService,
-            mapper = imageDocumentDtoMapper
         )
     }
 }

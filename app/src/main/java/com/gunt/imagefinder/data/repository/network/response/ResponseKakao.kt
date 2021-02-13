@@ -1,6 +1,8 @@
 package com.gunt.imagefinder.data.repository.network.response
 
-data class ResponseKakao<T>(
+import com.gunt.imagefinder.data.domain.ImageDocument
+
+data class ResponseKakao(
     val meta: ResponseMeta,
-    val documents: List<T>
+    val documents: List<ImageDocument>
 )

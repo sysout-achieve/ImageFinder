@@ -21,7 +21,6 @@ class ImageListViewModelConnectionTest {
         imageListViewModel = ImageListViewModel(
             ImageRepositoryRemote(
                 RetrofitModule.provideRetrofitApiService(),
-                ImageDocumentDtoMapper()
             )
         )
     }
@@ -34,10 +33,21 @@ class ImageListViewModelConnectionTest {
 
         // when
         val responseKakao = imageListViewModel.getResponseFromRepository()
-        val list = responseKakao.documents
+//        val list = responseKakao.documents
 
         // then
-        print(list[0])
-        Truth.assertThat(list.size).isEqualTo(expected)
+//        print(list[0])
+//        Truth.assertThat(list.size).isEqualTo(expected)
+    }
+
+    @Test
+    fun name() {
+        val temp = mutableSetOf("a")
+        val list = mutableListOf("a", "b", "c")
+        list.filter { (temp.add(it)||true) || it =="b" }
+        print(temp.add("b"))
+        print(temp.toString())
+
+
     }
 }
